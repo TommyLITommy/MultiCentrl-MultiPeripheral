@@ -31,6 +31,8 @@
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
 
+#include "global_config.h"
+
 #include "ly_ble_tus_c.h"
 #include "ly_ble_ancs_c.h"
 
@@ -103,7 +105,9 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
     // Based on the role this device plays in the connection, dispatch to the right handler.
     if (role == BLE_GAP_ROLE_PERIPH || ble_evt_is_advertising_timeout(p_ble_evt))
     {
+    	#ifdef ENABLE_PAIRING
     	pm_handler_secure_on_connection(p_ble_evt);
+		#endif
 		ly_ble_p.on_ble_peripheral_evt(p_ble_evt);
     }
     else if ((role == BLE_GAP_ROLE_CENTRAL) || (p_ble_evt->header.evt_id == BLE_GAP_EVT_ADV_REPORT))

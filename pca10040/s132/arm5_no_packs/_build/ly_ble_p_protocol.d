@@ -45,6 +45,8 @@
 .\_build\ly_ble_p_protocol.o: ..\..\..\..\..\..\components\libraries\util\app_error.h
 .\_build\ly_ble_p_protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\_build\ly_ble_p_protocol.o: ..\..\..\..\..\..\components\libraries\util\app_error_weak.h
+.\_build\ly_ble_p_protocol.o: ..\..\..\hardware\drv_flash.h
+.\_build\ly_ble_p_protocol.o: ..\..\..\..\..\..\components\libraries\crc16\crc16.h
 .\_build\ly_ble_p_protocol.o: ..\..\..\LY_BLE\ly_ble.h
 .\_build\ly_ble_p_protocol.o: ..\..\..\..\..\..\components\softdevice\s132\headers\ble.h
 .\_build\ly_ble_p_protocol.o: ..\..\..\..\..\..\components\softdevice\s132\headers\ble_err.h

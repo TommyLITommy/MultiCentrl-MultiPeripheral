@@ -83,6 +83,7 @@
 #include "ly_ble.h"
 #include "ly_ble_p.h"
 #include "ly_ble_c.h"
+#include "hardware."
 
 APP_TIMER_DEF(sys_tick_timer_id);
 

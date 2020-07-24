@@ -1,0 +1,13 @@
+.\_build\sys_queue.o: ..\..\..\system\sys_queue.c
+.\_build\sys_queue.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\_build\sys_queue.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\_build\sys_queue.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\_build\sys_queue.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\_build\sys_queue.o: ..\..\..\..\..\..\components\softdevice\s132\headers\nrf_error.h
+.\_build\sys_queue.o: ..\..\..\system\sys_queue.h
+.\_build\sys_queue.o: ..\..\..\system\sys_malloc.h
+.\_build\sys_queue.o: ..\..\..\system\sys_info.h
+.\_build\sys_queue.o: ..\..\..\uart\uart_protocol.h
+.\_build\sys_queue.o: ..\..\..\hardware\hardware.h
+.\_build\sys_queue.o: ..\..\..\hardware\drv_lcd.h
+.\_build\sys_queue.o: ..\..\..\hardware\drv_uart.h

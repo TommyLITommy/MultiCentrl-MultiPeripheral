@@ -106,6 +106,7 @@
 .\_build\ly_ble.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\_build\ly_ble.o: ..\..\..\..\..\..\components\libraries\balloc\nrf_balloc.h
 .\_build\ly_ble.o: ..\..\..\..\..\..\components\libraries\log\nrf_log_default_backends.h
+.\_build\ly_ble.o: ..\..\..\config\global_config.h
 .\_build\ly_ble.o: ..\..\..\LY_BLE_SERVICES\ly_ble_tus_c\ly_ble_tus_c.h
 .\_build\ly_ble.o: ..\..\..\LY_BLE_SERVICES\ly_ble_ancs_c\ly_ble_ancs_c.h
 .\_build\ly_ble.o: ..\..\..\LY_BLE_CENTRAL\ly_ble_c.h
