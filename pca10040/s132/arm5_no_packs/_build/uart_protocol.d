@@ -53,3 +53,5 @@
 .\_build\uart_protocol.o: ..\..\..\hardware\drv_uart.h
 .\_build\uart_protocol.o: ..\..\..\system\sys_queue.h
 .\_build\uart_protocol.o: ..\..\..\system\sys_malloc.h
+.\_build\uart_protocol.o: ..\..\..\uart\uart_protocol_ble_central_handler.h
+.\_build\uart_protocol.o: ..\..\..\uart\uart_protocol_ble_peripheral_handler.h

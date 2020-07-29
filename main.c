@@ -83,7 +83,8 @@
 #include "ly_ble.h"
 #include "ly_ble_p.h"
 #include "ly_ble_c.h"
-#include "hardware."
+#include "sys_info.h"
+#include "sys_malloc.h"
 
 APP_TIMER_DEF(sys_tick_timer_id);
 
@@ -131,12 +132,13 @@ static void idle_state_handle(void)
     }
 }
 
-extern void print_ble_db_discovery_info(void);
-
 void sys_tick_timeout_handler(void *p_context)//Attention please, It is ok to add so many funciton in this handler??? 
 {
 	NRF_LOG_INFO("sys_tick:%d", sys_tick++);
-	print_ble_db_discovery_info();
+	//print_ble_db_discovery_info();
+
+	print_ly_ble_p();
+	print_ly_ble_c();
 }
 
 
@@ -188,6 +190,29 @@ static void buttons_leds_init(bool * p_erase_bonds)
     *p_erase_bonds = (startup_event == BSP_EVENT_CLEAR_BONDING_DATA);
 }
 
+static void uart_rx_command_handler(uint8_t *p_data, uint16_t length)
+{
+	uint8_t *p_start_addr;
+    
+    NRF_LOG_INFO("Ready allocate %04x space\r\n", length);
+	//NRF_LOG_HEXDUMP_INFO(p_data, length);
+	//send_data_to_remote(p_data, length);
+	sys_info.uart_protocol.uart_protocol_rx_handler(p_data, length);
+	#if 0
+	p_start_addr = sys_malloc_apply(length, MEMORY_USAGE_UART_RX, __LINE__);
+    
+	if(p_start_addr != NULL)
+	{
+        NRF_LOG_INFO("store data into queue\r\n");
+        memcpy(p_start_addr, p_data, length);
+		sys_queue_put(&sys_info.rx_queue, ELEMENT_TYPE_UART, p_start_addr, length);
+	}
+    else
+    {
+        NRF_LOG_INFO("p_start_addr == NULL\r\n");
+    }
+	#endif
+}
 
 /**@brief Application main function.
  */
@@ -201,6 +226,14 @@ int main(void)
     timers_init();
 
 	buttons_leds_init(&erase_bonds);
+
+	#if 1
+	sys_malloc_init(&sys_info);
+	sys_queue_init(&sys_info.rx_queue);
+    
+    sys_info_init(&sys_info);
+    sys_info.hardware.drv_uart.drv_uart_rx_command_handler = uart_rx_command_handler;
+	#endif
 	
     power_management_init();
 

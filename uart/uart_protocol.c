@@ -9,6 +9,8 @@
 #include "sys_info.h"
 #include "sys_malloc.h"
 #include "uart_protocol.h"
+#include "uart_protocol_ble_central_handler.h"
+#include "uart_protocol_ble_peripheral_handler.h"
 
 static uint8_t sequence;
 
@@ -49,16 +51,16 @@ void uart_protocol_assemble_command_and_send(uint8_t group_id, uint8_t command_i
 
 static void uart_protocol_group_id_hardware_handler(uint8_t *p_data, uint16_t length)
 {
-    switch(p_data[COMMAND_COMMAND_ID_OFFSET])
+    switch(p_data[UART_COMMAND_COMMAND_ID_OFFSET])
     {
         case GID_HARDWARE_CID_PTD_LCD_FILL:
             NRF_LOG_INFO("LCD_FILL\r\n");
             uint16_t x1, y1, x2, y2, color;
-            x1 = uint16_decode(&p_data[COMMAND_PAYLOAD_OFFSET + 0]);
-            y1 = uint16_decode(&p_data[COMMAND_PAYLOAD_OFFSET + 2]);
-            x2 = uint16_decode(&p_data[COMMAND_PAYLOAD_OFFSET + 4]);
-            y2 = uint16_decode(&p_data[COMMAND_PAYLOAD_OFFSET + 6]);
-            color = uint16_decode(&p_data[COMMAND_PAYLOAD_OFFSET + 8]);
+            x1 = uint16_decode(&p_data[UART_COMMAND_PAYLOAD_OFFSET + 0]);
+            y1 = uint16_decode(&p_data[UART_COMMAND_PAYLOAD_OFFSET + 2]);
+            x2 = uint16_decode(&p_data[UART_COMMAND_PAYLOAD_OFFSET + 4]);
+            y2 = uint16_decode(&p_data[UART_COMMAND_PAYLOAD_OFFSET + 6]);
+            color = uint16_decode(&p_data[UART_COMMAND_PAYLOAD_OFFSET + 8]);
             NRF_LOG_INFO("x1:%d, y1:%d, x2:%d, y2:%d, color:%04x\r\n", x1, y1, x2, y2, color);
             sys_info.hardware.drv_lcd.drv_lcd_fill(x1, y1, x2, y2, color);
 			break;
@@ -71,12 +73,12 @@ static void uart_protocol_group_id_hardware_handler(uint8_t *p_data, uint16_t le
 		case GID_HARDWARE_CID_PTD_LCD_DRAW_PICTURE:
 			NRF_LOG_INFO("LCD_DRAW_PICTURE\r\n");
 			uint16_t x, y, length, width;
-			x = uint16_decode(&p_data[COMMAND_PAYLOAD_OFFSET + 0]);
-			y = uint16_decode(&p_data[COMMAND_PAYLOAD_OFFSET + 2]);
-			length = uint16_decode(&p_data[COMMAND_PAYLOAD_OFFSET + 4]);
-			width = uint16_decode(&p_data[COMMAND_PAYLOAD_OFFSET + 6]);
+			x = uint16_decode(&p_data[UART_COMMAND_PAYLOAD_OFFSET + 0]);
+			y = uint16_decode(&p_data[UART_COMMAND_PAYLOAD_OFFSET + 2]);
+			length = uint16_decode(&p_data[UART_COMMAND_PAYLOAD_OFFSET + 4]);
+			width = uint16_decode(&p_data[UART_COMMAND_PAYLOAD_OFFSET + 6]);
             NRF_LOG_INFO("x = %d, y = %d, length = %d, width = %d\r\n", x, y, length, width);
-            sys_info.hardware.drv_lcd.drv_lcd_draw_picture(x, y, length, width, &p_data[COMMAND_PAYLOAD_OFFSET + 8]);
+            sys_info.hardware.drv_lcd.drv_lcd_draw_picture(x, y, length, width, &p_data[UART_COMMAND_PAYLOAD_OFFSET + 8]);
 			//sanity to check the picture size
 			//p_sys_info->p_hardware->p_drv_lcd->drv_lcd_draw_picture(x, y, length, width, &p_data[COMMAND_PAYLOAD_OFFSET + 7]);
 			break;
@@ -87,7 +89,7 @@ static void uart_protocol_group_id_hardware_handler(uint8_t *p_data, uint16_t le
 
 static void uart_protocol_group_id_ble_handler(uint8_t *p_data, uint16_t length)
 {
-    switch(p_data[COMMAND_COMMAND_ID_OFFSET])
+    switch(p_data[UART_COMMAND_COMMAND_ID_OFFSET])
     {
         case 0x01:
             break;
@@ -98,7 +100,7 @@ static void uart_protocol_group_id_ble_handler(uint8_t *p_data, uint16_t length)
 
 static void uart_protocol_group_id_ack_handler(uint8_t *p_data, uint16_t length)
 {
-    switch(p_data[COMMAND_COMMAND_ID_OFFSET])
+    switch(p_data[UART_COMMAND_COMMAND_ID_OFFSET])
     {
         case 0x01:
             break;
@@ -130,7 +132,7 @@ static void uart_protocol_rx_handler(uint8_t *p_data, uint16_t length)
         return;
     }
 
-    switch(p_data[COMMAND_GROUP_ID_OFFSET])
+    switch(p_data[UART_COMMAND_GROUP_ID_OFFSET])
     {
         case GROUP_ID_HARDWARE:
             uart_protocol_group_id_hardware_handler(p_data, length);
@@ -139,8 +141,10 @@ static void uart_protocol_rx_handler(uint8_t *p_data, uint16_t length)
             uart_protocol_group_id_ble_handler(p_data, length);
             break;
         case GROUP_ID_BLE_P:   //BLE Peripheral
+        	uart_protocol_group_id_ble_peripheral_handler(p_data, length);
             break;
         case GROUP_ID_BLE_C:   //BLE Central
+        	uart_protocol_group_id_ble_central_handler(p_data, length);
             break;
         case GROUP_ID_BLE_MESH:
             break;

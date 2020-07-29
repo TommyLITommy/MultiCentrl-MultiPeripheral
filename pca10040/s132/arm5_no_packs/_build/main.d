@@ -104,3 +104,10 @@
 .\_build\main.o: ..\..\..\LY_BLE_PERIPHERAL\ly_ble_p.h
 .\_build\main.o: ..\..\..\..\..\..\components\ble\ble_db_discovery\ble_db_discovery.h
 .\_build\main.o: ..\..\..\LY_BLE_CENTRAL\ly_ble_c.h
+.\_build\main.o: ..\..\..\system\sys_info.h
+.\_build\main.o: ..\..\..\uart\uart_protocol.h
+.\_build\main.o: ..\..\..\hardware\hardware.h
+.\_build\main.o: ..\..\..\hardware\drv_lcd.h
+.\_build\main.o: ..\..\..\hardware\drv_uart.h
+.\_build\main.o: ..\..\..\system\sys_queue.h
+.\_build\main.o: ..\..\..\system\sys_malloc.h

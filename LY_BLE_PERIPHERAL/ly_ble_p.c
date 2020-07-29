@@ -37,7 +37,7 @@
 #include "ly_ble_ancs_c.h"
 #include "ly_ble_tus.h"
 
-#define DEVICE_NAME                         "LY002"                            /**< Name of device. Will be included in the advertising data. */
+#define DEVICE_NAME                         "LYSB"                            /**< Name of device. Will be included in the advertising data. */
 #define MANUFACTURER_NAME                   "LY"                   /**< Manufacturer. Will be passed to Device Information Service. */
 
 #define APP_ADV_INTERVAL                    300                                     /**< The advertising interval (in units of 0.625 ms. This value corresponds to 187.5 ms). */
@@ -54,6 +54,8 @@
 
 BLE_TUS_DEF(m_tus, NRF_SDH_BLE_PERIPHERAL_LINK_COUNT);
 BLE_ADVERTISING_DEF(m_advertising);                        						    /**< Advertising module instance. */
+
+APP_TIMER_DEF(data_send_timer_id);
 
 static uint8_t m_adv_handle = BLE_GAP_ADV_SET_HANDLE_NOT_SET;                   /**< Advertising handle used to identify an advertising set. */
 static uint8_t m_enc_advdata[BLE_GAP_ADV_SET_DATA_SIZE_MAX];                    /**< Buffer for storing an encoded advertising set. */
@@ -310,8 +312,7 @@ static void ble_tus_data_handler(ble_tus_evt_t * p_evt)
 	{
 		case BLE_TUS_EVT_RX_DATA:
 			NRF_LOG_INFO("Remote 0x%x Send Data:", p_evt->conn_handle);
-			NRF_LOG_HEXDUMP_INFO(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
-
+			//NRF_LOG_HEXDUMP_INFO(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
 			ly_ble_p_protocol_handler(p_evt->conn_handle, p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
 
 			#if 0
@@ -355,6 +356,8 @@ static void on_connected(const ble_gap_evt_t * const p_gap_evt)
 
     lastest_conn_handle = p_gap_evt->conn_handle;
 
+	//app_timer_start(data_send_timer_id, APP_TIMER_TICKS(1000), NULL);
+
 	if(periph_link_cnt == NRF_SDH_BLE_PERIPHERAL_LINK_COUNT)
 	{
 		
@@ -381,6 +384,11 @@ static void on_disconnect(ble_gap_evt_t const * const p_gap_evt)
 	if(periph_link_cnt == (NRF_SDH_BLE_PERIPHERAL_LINK_COUNT - 1))
 	{
 		advertising_start();
+	}
+
+	if(lastest_conn_handle == p_gap_evt->conn_handle)
+	{
+		lastest_conn_handle = BLE_CONN_HANDLE_INVALID;
 	}
 }
 
@@ -531,6 +539,28 @@ void ly_ble_p_db_disc_handler(ble_db_discovery_evt_t * p_evt)
 	ly_ble_ancs_c_disc_handler(p_evt);
 }
 
+static uint8_t send_buffer[200] = {0};
+
+void data_send_timer_timeout_handler(void *p_context)
+{
+	uint32_t err_code;
+	uint16_t length = sizeof(send_buffer);
+	NRF_LOG_INFO("Send data to remote");
+	err_code = ble_tus_data_send(&m_tus, send_buffer, &length, lastest_conn_handle);
+	APP_ERROR_CHECK(err_code);
+}
+
+void send_data_to_remote(uint8_t *p_data, uint16_t length)
+{
+	ble_tus_data_send(&m_tus, p_data, &length, lastest_conn_handle);
+}
+
+void print_ly_ble_p(void)
+{
+	uint32_t periph_link_cnt = ble_conn_state_peripheral_conn_count();
+	NRF_LOG_INFO("periph_link_cnt:%d", periph_link_cnt);
+}
+
 void ly_ble_p_init(ly_ble_p_t *p_ly_ble_p)
 {
 	p_ly_ble_p->on_ble_peripheral_evt = on_ble_peripheral_evt;
@@ -538,6 +568,8 @@ void ly_ble_p_init(ly_ble_p_t *p_ly_ble_p)
 	gap_params_init();
 	conn_params_init();
 	advertising_init();
+
+	//app_timer_create(&data_send_timer_id, APP_TIMER_MODE_REPEATED, data_send_timer_timeout_handler);
 }
 
 /*

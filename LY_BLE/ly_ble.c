@@ -65,7 +65,7 @@ static ly_ble_p_t ly_ble_p;
 
 #define TOMMY_DEBUG_ENABLE_MULTI_BLE_CENTRAL 1
 
-uint16_t lastest_conn_handle;
+uint16_t lastest_conn_handle = BLE_CONN_HANDLE_INVALID;
 
 /**@brief Function for handling asserts in the SoftDevice.
  *

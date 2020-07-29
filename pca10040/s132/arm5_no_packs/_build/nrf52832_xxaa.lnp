@@ -24,6 +24,8 @@
 ".\_build\sys_queue.o"
 ".\_build\crc16.o"
 ".\_build\uart_protocol.o"
+".\_build\uart_protocol_ble_central_handler.o"
+".\_build\uart_protocol_ble_peripheral_handler.o"
 ".\_build\ble_advdata.o"
 ".\_build\ble_advertising.o"
 ".\_build\ble_conn_params.o"

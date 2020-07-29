@@ -1,0 +1,10 @@
+.\_build\hardware.o: ..\..\..\hardware\hardware.c
+.\_build\hardware.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\_build\hardware.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\_build\hardware.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\_build\hardware.o: ..\..\..\system\sys_info.h
+.\_build\hardware.o: ..\..\..\uart\uart_protocol.h
+.\_build\hardware.o: ..\..\..\hardware\hardware.h
+.\_build\hardware.o: ..\..\..\hardware\drv_lcd.h
+.\_build\hardware.o: ..\..\..\hardware\drv_uart.h
+.\_build\hardware.o: ..\..\..\system\sys_queue.h

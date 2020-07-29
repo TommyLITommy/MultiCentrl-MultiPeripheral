@@ -56,6 +56,8 @@ static void ly_ble_p_protocol_gid_flash_handler(uint16_t conn_handle, const uint
 		case GID_FLASH_CID_ERASE:
 			{
 				uint8_t sector_count;
+				
+				NRF_LOG_INFO("GID_FLASH_CID_READ");
 
 				//if(flash_start_address < 0x200000 || flash_start_address > 0x400000 || ((flash_start_address % FLASH_SECTOR_SIZE) != 0))
 				if((flash_start_address % FLASH_SECTOR_SIZE) != 0)
@@ -88,11 +90,10 @@ static void ly_ble_p_protocol_gid_flash_handler(uint16_t conn_handle, const uint
 			break;
 		case GID_FLASH_CID_WRITE:
 			{
-				flash_operation_len = payload_length - 5;
+				flash_operation_len = uint32_decode(&p_data[BLE_PROTOCOL_PAYLOAD_OFFSET + 1 + 4]);
 				NRF_LOG_INFO("GID_FLASH_CID_WRITE, address:%x,length:%x", flash_start_address, flash_operation_len);
-				uint16_t data_to_write;
-				NRF_LOG_HEXDUMP_INFO(&p_data[BLE_PROTOCOL_PAYLOAD_OFFSET + 5], flash_operation_len);
-				drv_flash_write(flash_start_address, (uint8_t*)(&p_data[BLE_PROTOCOL_PAYLOAD_OFFSET + 9]), flash_operation_len);
+				//NRF_LOG_HEXDUMP_INFO(&p_data[BLE_PROTOCOL_PAYLOAD_OFFSET + 5], flash_operation_len);
+				//drv_flash_write(flash_start_address, (uint8_t*)(&p_data[BLE_PROTOCOL_PAYLOAD_OFFSET + 9]), flash_operation_len);
 			}
 			break;
 		case GID_FLASH_CID_READ:
@@ -130,7 +131,7 @@ void ly_ble_p_protocol_handler(uint16_t conn_handle, const uint8_t *p_data, uint
 
 	crc16_02 = crc16_compute(p_data, length - 2, NULL);
 
-	NRF_LOG_INFO("crc16_01:%d, crc16_02:%d\r\n", crc16_01, crc16_02);
+	NRF_LOG_INFO("crc16_01:%d, crc16_02:%d", crc16_01, crc16_02);
 	//if(crc16_01 != crc16_02)
 	if(0)
 	{	
@@ -149,7 +150,9 @@ void ly_ble_p_protocol_handler(uint16_t conn_handle, const uint8_t *p_data, uint
 		default:
 			break;
 	}
-	
+
+
+	NRF_LOG_INFO("\r\n");
 }
 
 void ly_ble_p_protocol_init(void)
