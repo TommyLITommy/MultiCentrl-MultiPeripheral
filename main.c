@@ -132,8 +132,17 @@ static void idle_state_handle(void)
     }
 }
 
+typedef struct
+{
+    uint32_t offset;
+    uint32_t size;
+}icon_font_flash_info_t;
+
+extern const icon_font_flash_info_t icon_font_flash_info[];
+
 void sys_tick_timeout_handler(void *p_context)//Attention please, It is ok to add so many funciton in this handler??? 
 {
+	NRF_LOG_INFO("icon_font_flash_info[10]:%d,%d", icon_font_flash_info[10].offset, icon_font_flash_info[10].size);
 	NRF_LOG_INFO("sys_tick:%d", sys_tick++);
 	//print_ble_db_discovery_info();
 
@@ -214,6 +223,130 @@ static void uart_rx_command_handler(uint8_t *p_data, uint16_t length)
 	#endif
 }
 
+typedef enum
+{
+	//ui_main
+	ICON_ID_BLUETOOTH,
+	ICON_ID_BATTERY_00,
+	ICON_ID_BATTERY_01,
+	ICON_ID_BATTERY_02,
+	ICON_ID_BATTERY_03,
+	ICON_ID_BATTERY_04,
+	ICON_ID_HEART_RATE,
+	ICON_ID_BLOOD_PRESSURE,
+	ICON_ID_OVAL_FRAME_01,
+	ICON_ID_OVAL_FRAME_02,
+	//ui_analog_clock
+	ICON_ID_ANALOG_CLOCK_DIAL,
+	ICON_ID_ANALOG_CLOCK_HAND_HOUR,
+	ICON_ID_ANALOG_CLOCK_HAND_MINUTE,
+	//ui_heart_rate_measure
+	ICON_ID_HEART_RATE_ICON,
+	ICON_ID_HERAT_RATE_UNIT,
+	//ui_blood_pressure_measure
+	ICON_ID_BLOOD_PRESSURE_ICON,
+	ICON_ID_BLOOD_PRESSURE_UNIT,
+	//ui_notification
+	ICON_ID_QQ,
+	ICON_ID_WECHAT,
+	ICON_ID_TEXT,
+	ICON_ID_INCOMING_CALL,
+	ICON_ID_OVAL_FRAME_03,
+	ICON_ID_CIRCLE_01_BLUE,
+	ICON_ID_CIRCLE_01_GRAY,
+	//ui_charging
+	ICON_ID_CHARGING_00,
+	ICON_ID_CHARGING_01,
+	ICON_ID_CHARGING_02,
+	ICON_ID_CHARGING_03,
+	ICON_ID_CHARGING_04,
+	//ui_tire_setting
+	ICON_ID_TIRE_SETTING_ICON,
+	ICON_ID_TIRE_SETTING_NAME,
+	//ui_ts_type_select
+	ICON_ID_CIRCLE_02_BLUE,
+	ICON_ID_CIRCLE_02_WHITE,
+	/*tire select*/
+	ICON_ID_TS_CIRCLE_BLUE,
+	ICON_ID_TS_CIRCLE_DARK_GRAY,
+	ICON_ID_TS_BACK_SELECT,
+	ICON_ID_TS_BACK_DESELECT,
+	ICON_ID_TS_OK_SELECT,
+	ICON_ID_TS_OK_DESELECT,
+	ICON_ID_TS_TIRE_BINDING_NAME,
+	//ui_tp_motor
+	ICON_ID_TP_MOTOR_BODY,
+	ICON_ID_TP_MOTOR_TIRE_RED,
+	ICON_ID_TP_MOTOR_TIRE_BLUE,
+	ICON_ID_TP_MOTOR_TIRE_GRAY,
+	//ui_tp_car ui_tp_suv
+	ICON_ID_TP_CAR_BODY,
+	ICON_ID_TP_SUV_BODY,
+    ICON_ID_TP_CAR_SUV_H_TIRE_RED,
+    ICON_ID_TP_CAR_SUV_H_TIRE_BLUE,
+    ICON_ID_TP_CAR_SUV_H_TIRE_GRAY,
+    ICON_ID_TP_CAR_SUV_V_TIRE_RED,
+    ICON_ID_TP_CAR_SUV_V_TIRE_BLUE,
+    ICON_ID_TP_CAR_SUV_V_TIRE_GRAY,
+	ICON_ID_MAX,
+}icon_id_t;
+
+const icon_font_flash_info_t icon_font_flash_info[ICON_ID_MAX] = {
+    { 0 , 640 },
+    { 640 , 1200 },
+    { 1840 , 1200 },
+    { 3040 , 1200 },
+    { 4240 , 1200 },
+    { 5440 , 1200 },
+    { 6640 , 960 },
+    { 7600 , 1008 },
+    { 8608 , 9200 },
+    { 17808 , 9200 },
+    { 4294967295 , 0 },
+    { 4294967295 , 0 },
+    { 4294967295 , 0 },
+    { 27008 , 35912 },
+    { 4294967295 , 0 },
+    { 62920 , 35912 },
+    { 4294967295 , 0 },
+    { 98832 , 3200 },
+    { 102032 , 3200 },
+    { 105232 , 3200 },
+    { 108432 , 7200 },
+    { 115632 , 22000 },
+    { 4294967295 , 0 },
+    { 4294967295 , 0 },
+    { 137632 , 37400 },
+    { 175032 , 37400 },
+    { 212432 , 37400 },
+    { 249832 , 37400 },
+    { 287232 , 37400 },
+    { 324632 , 49928 },
+    { 374560 , 3160 },
+    { 377720 , 8192 },
+    { 385912 , 8192 },
+    { 394104 , 5000 },
+    { 399104 , 5000 },
+    { 404104 , 2592 },
+    { 406696 , 2592 },
+    { 409288 , 2592 },
+    { 411880 , 2592 },
+    { 414472 , 2556 },
+    { 417028 , 40404 },
+    { 4294967295 , 0 },
+    { 4294967295 , 0 },
+    { 4294967295 , 0 },
+    { 457432 , 34560 },
+    { 491992 , 34560 },
+    { 526552 , 480 },
+    { 527032 , 480 },
+    { 527512 , 480 },
+    { 527992 , 594 },
+    { 528586 , 594 },
+    { 529180 , 594 },
+};
+
+
 /**@brief Application main function.
  */
 int main(void)
@@ -227,7 +360,7 @@ int main(void)
 
 	buttons_leds_init(&erase_bonds);
 
-	#if 1
+	#ifdef NRF52832_XXAA
 	sys_malloc_init(&sys_info);
 	sys_queue_init(&sys_info.rx_queue);
     

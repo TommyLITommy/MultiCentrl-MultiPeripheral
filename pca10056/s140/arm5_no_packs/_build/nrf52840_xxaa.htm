@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\_build\nrf52840_xxaa.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\_build\nrf52840_xxaa.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060183: Last Updated: Thu Jul 30 00:50:37 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060183: Last Updated: Thu Jul 30 09:37:08 2020
 <BR><P>
 <H3>Maximum Stack Usage =        804 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1890,11 +1890,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ly_ble_init
 </UL>
 
-<P><STRONG><a name="[13b]"></a>ly_ble_p_protocol_handler</STRONG> (Thumb, 120 bytes, Stack size 24 bytes, ly_ble_p_protocol.o(i.ly_ble_p_protocol_handler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 332<LI>Call Chain = ly_ble_p_protocol_handler &rArr; ly_ble_p_protocol_gid_debug_handler &rArr; ly_ble_db_discovery_start &rArr; app_error_handler &rArr; app_error_fault_handler &rArr; nrf_log_frontend_std_5 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr; nrf_memobj_alloc &rArr; nrf_memobj_free &rArr; nrf_balloc_free &rArr; app_util_critical_region_enter
+<P><STRONG><a name="[13b]"></a>ly_ble_p_protocol_handler</STRONG> (Thumb, 136 bytes, Stack size 32 bytes, ly_ble_p_protocol.o(i.ly_ble_p_protocol_handler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 340<LI>Call Chain = ly_ble_p_protocol_handler &rArr; ly_ble_p_protocol_gid_debug_handler &rArr; ly_ble_db_discovery_start &rArr; app_error_handler &rArr; app_error_fault_handler &rArr; nrf_log_frontend_std_5 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr; nrf_memobj_alloc &rArr; nrf_memobj_free &rArr; nrf_balloc_free &rArr; app_util_critical_region_enter
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_2
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_1
+<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_0
 <LI><a href="#[1ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;crc16_compute
 <LI><a href="#[1ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ly_ble_p_protocol_gid_flash_handler
 <LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ly_ble_p_protocol_gid_debug_handler
@@ -2489,6 +2490,7 @@ Global Symbols
 <LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ly_ble_p_protocol_gid_debug_handler
 <LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;on_ble_peripheral_evt
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;advertising_start
+<LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ly_ble_p_protocol_handler
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scan_evt_handler
 <LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;on_ble_central_evt
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;notif_print
@@ -6263,7 +6265,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[46]"></a>tus_c_evt_handler</STRONG> (Thumb, 96 bytes, Stack size 16 bytes, ly_ble_c.o(i.tus_c_evt_handler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 348<LI>Call Chain = tus_c_evt_handler &rArr; ly_ble_p_protocol_handler &rArr; ly_ble_p_protocol_gid_debug_handler &rArr; ly_ble_db_discovery_start &rArr; app_error_handler &rArr; app_error_fault_handler &rArr; nrf_log_frontend_std_5 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr; nrf_memobj_alloc &rArr; nrf_memobj_free &rArr; nrf_balloc_free &rArr; app_util_critical_region_enter
+<BR><BR>[Stack]<UL><LI>Max Depth = 356<LI>Call Chain = tus_c_evt_handler &rArr; ly_ble_p_protocol_handler &rArr; ly_ble_p_protocol_gid_debug_handler &rArr; ly_ble_db_discovery_start &rArr; app_error_handler &rArr; app_error_fault_handler &rArr; nrf_log_frontend_std_5 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr; nrf_memobj_alloc &rArr; nrf_memobj_free &rArr; nrf_balloc_free &rArr; app_util_critical_region_enter
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_1
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_error_handler
@@ -6294,7 +6296,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[49]"></a>ble_tus_data_handler</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, ly_ble_p.o(i.ble_tus_data_handler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 340<LI>Call Chain = ble_tus_data_handler &rArr; ly_ble_p_protocol_handler &rArr; ly_ble_p_protocol_gid_debug_handler &rArr; ly_ble_db_discovery_start &rArr; app_error_handler &rArr; app_error_fault_handler &rArr; nrf_log_frontend_std_5 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr; nrf_memobj_alloc &rArr; nrf_memobj_free &rArr; nrf_balloc_free &rArr; app_util_critical_region_enter
+<BR><BR>[Stack]<UL><LI>Max Depth = 348<LI>Call Chain = ble_tus_data_handler &rArr; ly_ble_p_protocol_handler &rArr; ly_ble_p_protocol_gid_debug_handler &rArr; ly_ble_db_discovery_start &rArr; app_error_handler &rArr; app_error_fault_handler &rArr; nrf_log_frontend_std_5 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr; nrf_memobj_alloc &rArr; nrf_memobj_free &rArr; nrf_balloc_free &rArr; app_util_critical_region_enter
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_1
 <LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ly_ble_p_protocol_handler
@@ -6347,7 +6349,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ly_ble_p_protocol_handler
 </UL>
 
-<P><STRONG><a name="[1ea]"></a>ly_ble_p_protocol_gid_flash_handler</STRONG> (Thumb, 146 bytes, Stack size 16 bytes, ly_ble_p_protocol.o(i.ly_ble_p_protocol_gid_flash_handler))
+<P><STRONG><a name="[1ea]"></a>ly_ble_p_protocol_gid_flash_handler</STRONG> (Thumb, 160 bytes, Stack size 16 bytes, ly_ble_p_protocol.o(i.ly_ble_p_protocol_gid_flash_handler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 236<LI>Call Chain = ly_ble_p_protocol_gid_flash_handler &rArr; nrf_log_frontend_std_2 &rArr; std_n &rArr; nrf_log_frontend_dequeue &rArr; nrf_memobj_alloc &rArr; nrf_memobj_free &rArr; nrf_balloc_free &rArr; app_util_critical_region_enter
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_log_frontend_std_2

@@ -132,8 +132,8 @@ void ly_ble_p_protocol_handler(uint16_t conn_handle, const uint8_t *p_data, uint
 	crc16_02 = crc16_compute(p_data, length - 2, NULL);
 
 	NRF_LOG_INFO("crc16_01:%d, crc16_02:%d", crc16_01, crc16_02);
-	//if(crc16_01 != crc16_02)
-	if(0)
+	if(crc16_01 != crc16_02)
+	//if(0)
 	{	
 		NRF_LOG_INFO("crc16 check error");
 		return;

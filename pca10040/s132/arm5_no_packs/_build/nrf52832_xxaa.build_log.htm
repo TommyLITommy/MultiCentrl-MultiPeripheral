@@ -27,29 +27,14 @@ Project File Date:  07/24/2020
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 2 (build 183)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'nrf52832_xxaa'
-compiling ly_ble_p_protocol.c...
-..\..\..\LY_BLE_PERIPHERAL\ly_ble_p_protocol.c(34): warning:  #550-D: variable "flash_id" was set but never used
-  	uint8_t flash_id;
-..\..\..\LY_BLE_PERIPHERAL\ly_ble_p_protocol.c: 1 warning, 0 errors
-compiling ly_ble_c.c...
-compiling ly_ble_p.c...
-..\..\..\LY_BLE_PERIPHERAL\ly_ble_p.c(352): warning:  #177-D: variable "err_code" was declared but never referenced
-  	ret_code_t  err_code;
-..\..\..\LY_BLE_PERIPHERAL\ly_ble_p.c(58): warning:  #177-D: variable "data_send_timer_id" was declared but never referenced
-  APP_TIMER_DEF(data_send_timer_id);
-..\..\..\LY_BLE_PERIPHERAL\ly_ble_p.c(85): warning:  #177-D: variable "m_adv_uuids" was declared but never referenced
-  static ble_uuid_t m_adv_uuids[] =
-..\..\..\LY_BLE_PERIPHERAL\ly_ble_p.c(168): warning:  #177-D: function "on_adv_evt" was declared but never referenced
-  static void on_adv_evt(ble_adv_evt_t ble_adv_evt)
-..\..\..\LY_BLE_PERIPHERAL\ly_ble_p.c: 4 warnings, 0 errors
 compiling main.c...
-..\..\..\main.c(195): warning:  #177-D: variable "p_start_addr" was declared but never referenced
+..\..\..\main.c(204): warning:  #177-D: variable "p_start_addr" was declared but never referenced
   	uint8_t *p_start_addr;
 ..\..\..\main.c: 1 warning, 0 errors
 linking...
-Program Size: Code=84316 RO-data=10896 RW-data=3772 ZI-data=27300  
+Program Size: Code=84424 RO-data=11316 RW-data=3772 ZI-data=27300  
 FromELF: creating hex file...
-".\_build\nrf52832_xxaa.axf" - 0 Error(s), 6 Warning(s).
+".\_build\nrf52832_xxaa.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -79,7 +64,7 @@ Package Vendor: NordicSemiconductor
       Source file:   Device\Source\arm\arm_startup_nrf52.s
       Source file:   Device\Source\system_nrf52.c
       Include file:  Device\Include\system_nrf52.h
-Build Time Elapsed:  00:00:05
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>
